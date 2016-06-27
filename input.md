@@ -1,4 +1,5 @@
- machine learning algorithm that gives stock predictions based on stock indicators.
+1.
+	A machine learning algorithm that gives stock predictions based on stock indicators.
 2.
 	The algortihm will learn based of how well it predicted the result and adjust it's measures.
 3.
