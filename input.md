@@ -10,3 +10,4 @@
 	* backtrader ?
 	* matplotlib.pyplot
 	* numpy
+	* sklearn
