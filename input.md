@@ -12,6 +12,7 @@
 	* numpy
 	* sklearn
 	* jython
+	* tensorflow
 5. API:
 	* Nordnet - https://api.test.nordnet.se
 	* Login with Python - https://api.test.nordnet.se/projects/api/wiki/Python_example
