@@ -24,4 +24,7 @@
     * Python GUI
 7. Workflow:
     * Test-driven development
-    * Scrum - Trello (mainly used for saving ideas since there is not enough time for sprints) 
+    * Scrum - Trello (mainly used for saving ideas since there is not enough time for sprints)
+8. Styleguides:
+	* PEP 8 - https://www.python.org/dev/peps/pep-0008/
+	* Google Python Style Guide - https://google.github.io/styleguide/pyguide.html 
