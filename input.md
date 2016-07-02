@@ -17,7 +17,11 @@
 	* Nordnet - https://api.test.nordnet.se
 	* Login with Python - https://api.test.nordnet.se/projects/api/wiki/Python_example
 	* With Java - https://api.test.nordnet.se/projects/api/wiki/Java_example
+	* Yahoo Finance API - http://www.jarloo.com/yahoo_finance/
 6. GUI:
     * Swing
     * FX
     * Python GUI
+7. Workflow:
+    * Test-driven development
+    * Scrum - Trello (mainly used for saving ideas since there is not enough time for sprints) 
