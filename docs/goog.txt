@@ -1,0 +1,1 @@
+Google = http://real-chart.finance.yahoo.com/table.csv?s=GOOG&d=5&e=1&f=2016&g=d&a=7&b=19&c=2004&ignore=.csv
