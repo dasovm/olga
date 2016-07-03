@@ -10,3 +10,7 @@ class DestinationException(Exception):
             return repr('You entered a invalid path. Value = ' + self.value)
         else:
             return repr('You did everything right, yet here you are. Value = ' + self.value)
+
+
+class FileNameException(Exception):
+    pass
