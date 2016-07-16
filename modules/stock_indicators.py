@@ -3,7 +3,7 @@ import numpy as np
 
 def rsi(prices, n=14):
 	deltas = np.diff(prices)
-	seed = deltas[:n+1]
+	seed = deltas[:n + 1]
 	up = seed[seed >= 0].sum() / n
 	down = -seed[seed < 0].sum() / n
 	rs = up / down
