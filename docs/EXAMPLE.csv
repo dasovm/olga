@@ -1,6 +1,6 @@
 date;20160711;20160712;20160713;20160714;20160715
-price;100;100;100;100;100
-price-delta-1;2;2;2;2;2
+price;100;99;100;101;100
+price-delta-1;2;-1;1;1;-1
 price-delta-3;4;4;4;4;4
 price-delta-7;-2;-2;-2;-2;-2
 price-delta-30;-9,4;-9,4;-9,4;-9,4;-9,4
@@ -56,3 +56,4 @@ day-of-month;11;12;13;14;15
 day-of-week;Monday;Tuesday;Wednesday;Thursday;Friday
 signal;STAY_AWAY;BUY;STAY_LONG;SELL;STAY_AWAY
 is-bought;false;true;true;false;false
+change-since-bought;0;0;1;2;0
