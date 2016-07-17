@@ -31,6 +31,11 @@ def rsi(prices, n=14):
 def sma(values, window):
 	weights = np.repeat(1.0, window) / window
 	smas = np.convolve(values, weights, 'valid')
+	smas = smas[::-1]  # numpy vector reverse
+	zeros = [0] * (len(values) - len(smas))
+	zeros = np.array(zeros)
+	smas = np.append(smas, zeros)
+	smas = smas[::-1]  # reversing it back
 	return smas
 
 
@@ -38,6 +43,21 @@ def ema(values, window):
 	weights = np.exp(np.linspace(-1., 0., window))
 	weights /= weights.sum()
 
-	a = np.convolve(values, weights)[:len(values)]
+	a = np.convolve(values, weights, mode='full')[:len(values)]
 	a[:window] = a[window]
 	return a
+
+
+def macd(values, slow=26, fast=12):
+	ema_slow = ema(values, slow)
+	ema_fast = ema(values, fast)
+	return ema_fast - ema_slow
+
+
+def macd_signal(values, signal=9):
+	ema_signal = ema(values, signal)
+	return ema_signal
+
+
+def delta_macd(macd, macd_signal):
+	return macd - macd_signal
