@@ -30,8 +30,10 @@ def get_stock_data(stock_symbol):
 	# df['MA'] = pd.rolling_mean(df['Adj Close'], 50)
 	prices = df['Adj Close']
 	df['RSI'] = sti.rsi(prices)
-	df['EMA'] = sti.ema(prices, 12)
-	df['SMA'] = sti.sma(prices, 12)
+	df['SMA-15'] = sti.sma(prices, 15)
+	df['SMA-50'] = sti.sma(prices, 50)
+	df['SMA-10'] = sti.sma(prices, 10)
+	df['EMA-10'] = sti.ema(prices, 10)
 	df['MACD'] = sti.macd(prices)
 	df['MACD-signal'] = sti.macd_signal(df['MACD'])
 	df['Delta-MACD'] = sti.delta_macd(df['MACD'], df['MACD-signal'])
