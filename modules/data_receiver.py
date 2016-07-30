@@ -29,15 +29,23 @@ def get_stock_data(stock_symbol):
 	df = df.drop('High', 1).drop('Low', 1).drop('Open', 1).drop('Close', 1)
 	# df['MA'] = pd.rolling_mean(df['Adj Close'], 50)
 	prices = df['Adj Close']
-	df['RSI'] = sti.rsi(prices)
+	df['RSI-14'] = sti.rsi(prices)
+	df['RSI-Delta-1'] = sti.delta(df['RSI-14'], 1)
+	df['RSI-Delta-3'] = sti.delta(df['RSI-14'], 3)
+	df['RSI-Delta-7'] = sti.delta(df['RSI-14'], 7)
 	df['SMA-15'] = sti.sma(prices, 15)
 	df['SMA-50'] = sti.sma(prices, 50)
 	df['SMA-10'] = sti.sma(prices, 10)
 	df['EMA-10'] = sti.ema(prices, 10)
 	df['MACD'] = sti.macd(prices)
 	df['MACD-signal'] = sti.macd_signal(df['MACD'])
-	df['Delta-MACD'] = sti.delta_macd(df['MACD'], df['MACD-signal'])
+	df['MACD-Diff'] = sti.diff_macd(df['MACD'], df['MACD-signal'])
+	df['MACD-Diff-Delta-1'] = sti.delta(df['MACD-Diff'], 1)
+	df['MACD-Diff-Delta-3'] = sti.delta(df['MACD-Diff'], 3)
+	df['MACD-Diff-Delta-7'] = sti.delta(df['MACD-Diff'], 7)
 	return df.tail(50)
+
+	# Cut off array so no zeros is being calculated
 
 # delta_mas = []
 # len12 = len(sti.sma(df['Adj Close'], 12))

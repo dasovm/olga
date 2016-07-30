@@ -1,4 +1,5 @@
 import numpy as np
+from collections import deque
 
 
 def rsi(prices, n=14):
@@ -59,5 +60,10 @@ def macd_signal(values, signal=9):
 	return ema_signal
 
 
-def delta_macd(macd, macd_signal):
+def diff_macd(macd, macd_signal):
 	return macd - macd_signal
+
+
+def delta(values, time_difference):
+	old_values = np.roll(values, time_difference)
+	return values - old_values
