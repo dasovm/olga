@@ -60,10 +60,15 @@ def macd_signal(values, signal=9):
 	return ema_signal
 
 
-def diff_macd(macd, macd_signal):
-	return macd - macd_signal
+def diff(values1, values2):
+	return values1 - values2
 
 
 def delta(values, time_difference):
 	old_values = np.roll(values, time_difference)
 	return values - old_values
+
+
+def delta_percent(values, time_difference):
+	old_values = np.roll(values, time_difference)
+	return ((values - old_values) / old_values) * 100
