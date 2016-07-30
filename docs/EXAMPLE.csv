@@ -3,7 +3,7 @@ price;100;99;100;101;100
 price-delta-1;2;-1;1;1;-1
 price-delta-3;4;4;4;4;4
 price-delta-7;-2;-2;-2;-2;-2
-price-delta-30;-9,4;-9,4;-9,4;-9,4;-9,4
+price-delta-30;-9;-9;-9;-9;-9
 rsi-14;33;33;33;33;33
 rsi-delta-1;3;3;3;3;3
 rsi-delta-3;5;5;5;5;5
