@@ -26,7 +26,8 @@ def get_stock_data(stock_symbol):
 
 	# Remove days when OMXS is closed ('Volume == 0')
 	df = df[df.Volume != 0]
-	df = df.drop('High', 1).drop('Low', 1).drop('Open', 1).drop('Close', 1)
+	# df = df.drop('High', 1).drop('Low', 1).drop('Open', 1).drop('Close', 1)
+	df = df.drop('Open', 1).drop('Close', 1)
 
 	prices = df['Adj Close']
 
@@ -65,6 +66,9 @@ def get_stock_data(stock_symbol):
 	df['MACD-Diff-Delta-3'] = sti.delta(df['MACD-Diff'], 3)
 	df['MACD-Diff-Delta-7'] = sti.delta(df['MACD-Diff'], 7)
 
+	df['Stochastic-K'], df['Stochastic-D'] = sti.stochastic(df['High'], df['Low'], prices)
+
+	df.drop('High', 1).drop('Low', 1)
 	return df.tail(50)
 
 	# Cut off array so no zeros is being calculated

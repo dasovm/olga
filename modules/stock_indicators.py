@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from collections import deque
 
 
@@ -58,6 +59,12 @@ def macd(values, slow=26, fast=12):
 def macd_signal(values, signal=9):
 	ema_signal = ema(values, signal)
 	return ema_signal
+
+
+def stochastic(highest, lowest, close, time=14):
+	l, h = pd.rolling_min(lowest, time), pd.rolling_max(highest, time)
+	k = 100 * (close - l) / (h - l)
+	return k, sma(k, 3)
 
 
 def diff(values1, values2):
