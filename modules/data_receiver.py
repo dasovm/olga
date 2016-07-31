@@ -67,6 +67,16 @@ def get_stock_data(stock_symbol):
 	df['MACD-Diff-Delta-7'] = sti.delta(df['MACD-Diff'], 7)
 
 	df['Stochastic-K'], df['Stochastic-D'] = sti.stochastic(df['High'], df['Low'], prices)
+	df['Stochastic-Diff'] = sti.diff(df['Stochastic-K'], df['Stochastic-D'])
+	df['Stochastic-K-Delta-1'] = sti.delta(df['Stochastic-K'], 1)
+	df['Stochastic-K-Delta-3'] = sti.delta(df['Stochastic-K'], 3)
+	df['Stochastic-K-Delta-7'] = sti.delta(df['Stochastic-K'], 7)
+	df['Stochastic-D-Delta-1'] = sti.delta(df['Stochastic-D'], 1)
+	df['Stochastic-D-Delta-3'] = sti.delta(df['Stochastic-D'], 3)
+	df['Stochastic-D-Delta-7'] = sti.delta(df['Stochastic-D'], 7)
+	df['Stochastic-Diff-Delta-1'] = sti.delta(df['Stochastic-Diff'], 1)
+	df['Stochastic-Diff-Delta-3'] = sti.delta(df['Stochastic-Diff'], 3)
+	df['Stochastic-Diff-Delta-7'] = sti.delta(df['Stochastic-Diff'], 7)
 
 	df.drop('High', 1).drop('Low', 1)
 	return df.tail(50)
