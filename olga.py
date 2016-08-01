@@ -1,4 +1,5 @@
 import sys
+import pandas as pd
 sys.path.insert(0, './modules')
 import data_receiver as dr
 

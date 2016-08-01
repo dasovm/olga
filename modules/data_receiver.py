@@ -78,7 +78,23 @@ def get_stock_data(stock_symbol):
 	df['Stochastic-Diff-Delta-3'] = sti.delta(df['Stochastic-Diff'], 3)
 	df['Stochastic-Diff-Delta-7'] = sti.delta(df['Stochastic-Diff'], 7)
 
-	df.drop('High', 1).drop('Low', 1)
+	df['Aroon-Positive'], df['Aroon-Negative'] = sti.aroon(df['High'].values, df['Low'].values)
+	df['ADX'] = sti.adx(df['High'].values, df['Low'].values, prices.values)
+	df['ADX-Delta-1'] = sti.delta(df['ADX'], 1)
+	df['ADX-Delta-3'] = sti.delta(df['ADX'], 3)
+	df['ADX-Delta-7'] = sti.delta(df['ADX'], 7)
+
+	df['CCI-20'] = sti.cci(df['High'].values, df['Low'].values, prices.values)
+	df['CCI-20-Delta-1'] = sti.delta(df['CCI-20'], 1)
+	df['CCI-20-Delta-3'] = sti.delta(df['CCI-20'], 3)
+	df['CCI-20-Delta-7'] = sti.delta(df['CCI-20'], 7)
+
+	df['MOM'] = sti.mom(prices.values)
+	df['MOM-Delta-1'] = sti.delta(df['MOM'], 1)
+	df['MOM-Delta-3'] = sti.delta(df['MOM'], 3)
+	df['MOM-Delta-7'] = sti.delta(df['MOM'], 7)
+
+	df = df.drop('High', 1).drop('Low', 1)
 	return df.tail(50)
 
 	# Cut off array so no zeros is being calculated
