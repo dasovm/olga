@@ -19,6 +19,8 @@ end_time = datetime.now().date()
 
 def get_stock_data(stock_symbol):
 	# Receive stock info
+	get_stock_actions(stock_symbol)
+
 	df = web.DataReader(stock_symbol, 'yahoo', start_time, end_time)
 	df['Date'] = df.index
 	df['Day of week'] = date_util.get_weekday_from_serie(df['Date'])
@@ -94,10 +96,15 @@ def get_stock_data(stock_symbol):
 	df['MOM-Delta-3'] = sti.delta(df['MOM'], 3)
 	df['MOM-Delta-7'] = sti.delta(df['MOM'], 7)
 
-	df = df.drop('High', 1).drop('Low', 1)
+	# df = df.drop('High', 1).drop('Low', 1)
 	df = df[df['SMA-50'] != 0]
 	return df
 
+
+def get_stock_actions(stock_symbol):
+	df = web.DataReader(stock_symbol, 'yahoo-actions', start_time, end_time)
+	df = df[df['action'] != 'DIVIDEND']
+	print df
 # delta_mas = []
 # len12 = len(sti.sma(df['Adj Close'], 12))
 # len26 = len(sti.sma(df['Adj Close'], 26))
