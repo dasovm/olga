@@ -54,7 +54,6 @@ def ema(values, window):
 def macd(values, slow=26, fast=12):
 	ema_slow = ema(values, slow)
 	ema_fast = ema(values, fast)
-	print(type(ema_slow))
 	return ema_fast - ema_slow
 
 
@@ -64,7 +63,7 @@ def macd_signal(values, signal=9):
 
 
 def stochastic(high, low, close, time=14):
-	l, h = pd.rolling_min(low, time), pd.rolling_max(high, time)
+	l, h = low.rolling(time).min(), high.rolling(time).max()
 	k = 100 * (close - l) / (h - l)
 	return k, sma(k, 3)
 

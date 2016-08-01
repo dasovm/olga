@@ -95,9 +95,8 @@ def get_stock_data(stock_symbol):
 	df['MOM-Delta-7'] = sti.delta(df['MOM'], 7)
 
 	df = df.drop('High', 1).drop('Low', 1)
-	return df.tail(50)
-
-	# Cut off array so no zeros is being calculated
+	df = df[df['SMA-50'] != 0]
+	return df
 
 # delta_mas = []
 # len12 = len(sti.sma(df['Adj Close'], 12))
