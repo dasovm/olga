@@ -83,6 +83,7 @@ def adx(high, low, close, time=14):
 def mom(close):
 	return np.array(talib.MOM(close))
 
+
 def diff(values1, values2):
 	return values1 - values2
 

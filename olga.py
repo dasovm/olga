@@ -11,10 +11,9 @@ ticker = 'AZA.ST'
 
 
 def main():
-	print("Crunshin' dem " + ticker + ' data for yah...')
 	df = dr.get_stock_data(ticker)
 	df.to_csv(ticker + '.csv')
-	print('Finish.')
+	print(str(len(df.index)) + " rows of data has been saved to: " + ticker + '.csv')
 
 if __name__ == '__main__':
 	main()

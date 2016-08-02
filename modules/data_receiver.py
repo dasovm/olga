@@ -18,20 +18,30 @@ end_time = datetime.now().date()
 
 
 def get_stock_data(stock_symbol):
+
+	print("Downloading " + stock_symbol + ' data...'),
+
 	# Receive stock info
-	get_stock_actions(stock_symbol)
+	split_df = get_stock_actions(stock_symbol)
 
 	df = web.DataReader(stock_symbol, 'yahoo', start_time, end_time)
-	df['Date'] = df.index
-	df['Day of week'] = date_util.get_weekday_from_serie(df['Date'])
-	df['Month'] = date_util.get_month_from_serie(df['Date'])
+	print("DONE!")
+
+	if not split_df.empty:
+		df = correct_prices(df, split_df)
+	else:
+		print("No splits was found.")
+
+	print("Calculating indicators..."),
+	df['Day of week'] = date_util.get_weekday_from_serie(df.index)
+	df['Month'] = date_util.get_month_from_serie(df.index)
 
 	# Remove days when OMXS is closed ('Volume == 0')
 	df = df[df.Volume != 0]
 	# df = df.drop('High', 1).drop('Low', 1).drop('Open', 1).drop('Close', 1)
-	df = df.drop('Open', 1).drop('Close', 1)
+	df = df.drop('Open', 1).drop('Adj Close', 1)
 
-	prices = df['Adj Close']
+	prices = df['Close']
 
 	df['Price-Delta%-1'] = sti.delta_percent(prices, 1)
 	df['Price-Delta%-3'] = sti.delta_percent(prices, 3)
@@ -96,21 +106,33 @@ def get_stock_data(stock_symbol):
 	df['MOM-Delta-3'] = sti.delta(df['MOM'], 3)
 	df['MOM-Delta-7'] = sti.delta(df['MOM'], 7)
 
-	# df = df.drop('High', 1).drop('Low', 1)
+	df = df.drop('High', 1).drop('Low', 1)
 	df = df[df['SMA-50'] != 0]
+
+	print("DONE!")
 	return df
 
 
 def get_stock_actions(stock_symbol):
 	df = web.DataReader(stock_symbol, 'yahoo-actions', start_time, end_time)
 	df = df[df['action'] != 'DIVIDEND']
-	print df
-# delta_mas = []
-# len12 = len(sti.sma(df['Adj Close'], 12))
-# len26 = len(sti.sma(df['Adj Close'], 26))
-# print('12: ' + str(len12) + ", 26: " + str(len26))
-# for i in range(len(sti.sma(df['Adj Close'], 26))):
-# 	ma12 = sti.sma(df['Adj Close'], 12)[len12 - i - 1]
-# 	ma26 = sti.sma(df['Adj Close'], 26)[len26 - i - 1]
-# 	delta_mas.append(ma12 - ma26)
-# delta_mas.reverse()
+	return df
+
+
+def correct_prices(stock_data, split_data):
+	print('Found ' + str(len(split_data.index)) + ' splits:')
+	for split_date, split in split_data.iterrows():
+		print(' - Split ' + str(split_date) + ', value: ' + str(split['value']))
+	print('Correcting data based on the splits...'),
+	for stock_date, stock in stock_data.iterrows():
+		for split_date, split in split_data.iterrows():
+			if stock_date < split_date:
+				# Multiply with split['value']
+				stock_data.set_value(stock_date, 'Close', stock['Close'] * split['value'])
+				stock['Close'] = stock['Close'] * split['value']
+				stock_data.set_value(stock_date, 'High', stock['High'] * split['value'])
+				stock['High'] = stock['High'] * split['value']
+				stock_data.set_value(stock_date, 'Low', stock['Low'] * split['value'])
+				stock['Low'] = stock['Low'] * split['value']
+	print('DONE!')
+	return stock_data
