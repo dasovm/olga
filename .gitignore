@@ -240,4 +240,4 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 # Custom
-./stock_data
+stock_data/
