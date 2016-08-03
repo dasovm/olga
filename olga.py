@@ -1,19 +1,22 @@
 import sys
-import pandas as pd
 sys.path.insert(0, './modules')
 import data_receiver as dr
 import export_data as ed
+import import_data as id
 
 """
 Main class
 """
 
-ticker = 'CLA-B.ST'
+ticker = 'AOI.ST'
 
 
 def main():
-	df = dr.get_stock_data(ticker)
-	ed.export_to_csv(df, ticker)
+	symbols = id.get_symbol_list()
+	for symbol in symbols.splitlines():
+		df = dr.get_stock_data(symbol + '.ST')
+		ed.export_to_csv(df, symbol + '.ST')
+		print '----------'
 
 if __name__ == '__main__':
 	main()
