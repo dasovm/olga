@@ -12,10 +12,9 @@ ticker = 'AOI.ST'
 
 
 def main():
-	stock_count = 0
 	symbols = id.get_symbol_list()
-	for i in symbols.splitlines():
-		stock_count += 1
+	stock_count = len(symbols.splitlines())
+
 	for symbol in symbols.splitlines():
 		print ''
 		df = dr.get_stock_data(symbol + '.ST')
