@@ -12,16 +12,15 @@ ticker = 'AOI.ST'
 
 
 def main():
-	symbols = id.get_symbol_list()
-	stock_count = len(symbols.splitlines())
+    symbols = id.get_symbol_list()
+    stock_count = len(symbols.splitlines())
 
-	for symbol in symbols.splitlines():
-		print ''
-		df = dr.get_stock_data(symbol + '.ST')
-		ed.export_to_csv(df, symbol + '.ST')
-		stock_count -= 1
-		print(str(stock_count) + ' stocks left.')
-		print '----------'
+    for symbol in symbols.splitlines():
+        df = dr.get_stock_data(symbol + '.ST')
+        ed.export_to_csv(df, symbol + '.ST')
+        stock_count -= 1
+        print(str(stock_count) + ' stocks left.')
+        print '----------\n'
 
 if __name__ == '__main__':
-	main()
+    main()
