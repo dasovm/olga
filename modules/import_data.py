@@ -3,5 +3,5 @@ def get_symbol_list():
 
 
 def import_text_file_to_string(path):
-    file = open(path, 'r')
-    return file.read()
+    csv_file = open(path, 'r')
+    return csv_file.read()
