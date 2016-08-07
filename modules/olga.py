@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(0, './modules')
 import data_receiver as dr
 import stock_analyzer as sa
 import export_data as ed
