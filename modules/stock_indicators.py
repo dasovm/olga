@@ -96,3 +96,20 @@ def delta(values, time_difference):
 def delta_percent(values, time_difference):
     old_values = np.roll(values, time_difference)
     return ((values - old_values) / old_values) * 100
+
+
+def result_percent(values, time_difference):
+    result_values = np.roll(values, -time_difference)
+    return((result_values - values) / values) * 100
+
+
+def get_rating_from_result(result):
+    rating_list = []
+    for i, r in np.ndenumerate(result):
+        if (r >= 3):
+            rating_list.append('BUY')
+        elif (r <= -1):
+            rating_list.append('SELL')
+        else:
+            rating_list.append('HOLD')
+    return np.array(rating_list)

@@ -15,6 +15,7 @@ Should not be runnable from terminal, only from olga.py
 
 start_time = datetime(2000, 01, 01)
 end_time = datetime.now().date()
+result_days = 10
 
 
 def get_stock_data(stock_symbol):
@@ -106,8 +107,11 @@ def get_stock_data(stock_symbol):
     df['MOM Delta 3'] = sti.delta(df['MOM'], 3)
     df['MOM Delta 7'] = sti.delta(df['MOM'], 7)
 
+    df['Rating ' + str(result_days) + ' Days'] = sti.get_rating_from_result(sti.result_percent(prices, result_days))
+
     df = df.drop('High', 1).drop('Low', 1)
     df = df[df['SMA 50'] != 0]
+    df = df[:-result_days]
 
     print("DONE!")
     return df
