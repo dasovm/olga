@@ -24,7 +24,6 @@ def main():
         sa.analyzis(X, y)
         print(str(stock_count) + ' stocks left.')
         print '----------\n'
-        break
 
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@ def analyzis(X, y):
 
     print('Training the model')
     # Try both with kernel = 'linear' and 'rbf'
-    clf = svm.SVC(kernel='linear', C = 1.0)
+    clf = svm.SVC(kernel='linear', C = 0.01)
     clf.fit(X[:-test_size], y[:-test_size])
     # print(clf.predict(X[-1]))
     correct_count = 0
