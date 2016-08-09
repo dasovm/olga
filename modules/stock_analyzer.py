@@ -35,23 +35,14 @@ def analyzis(X, y):
 
     print('Training the model')
     # Try both with kernel = 'linear' and 'rbf'
-    clf = svm.SVC(kernel='linear', C = 0.01)
+    # clf = svm.SVC(kernel='linear', C = 0.01)
+    clf = svm.LinearSVC(C = 1.0, dual = False)
     clf.fit(X[:-test_size], y[:-test_size])
     # print(clf.predict(X[-1]))
     correct_count = 0
 
-    # print(str(clf.predict(X[-10].reshape(1, -1))[0]) + ', ' + str(y[-10]))
-    # print(str(clf.predict(X[-9].reshape(1, -1))) + ', ' + str(y[-9]))
-    # print(str(clf.predict(X[-8].reshape(1, -1))) + ', ' + str(y[-8]))
-    # print(str(clf.predict(X[-7].reshape(1, -1))) + ', ' + str(y[-7]))
-    # print(str(clf.predict(X[-6].reshape(1, -1))) + ', ' + str(y[-6]))
-    # print(str(clf.predict(X[-5].reshape(1, -1))) + ', ' + str(y[-5]))
-    # print(str(clf.predict(X[-4].reshape(1, -1))) + ', ' + str(y[-4]))
-    # print(str(clf.predict(X[-3].reshape(1, -1))) + ', ' + str(y[-3]))
-    # print(str(clf.predict(X[-2].reshape(1, -1))) + ', ' + str(y[-2]))
-    # print(str(clf.predict(X[-1].reshape(1, -1))) + ', ' + str(y[-1]))
-
     print('Testing the model')
+    print 'Features: ' + str(len((X[-1]).reshape(1, -1)[0]))
     for x in range(1, test_size + 1):
         # print(str(clf.predict(X[-x].reshape(1, -1))[0]) + ', ' + str(y[-x]))
         if clf.predict(X[-x].reshape(1, -1))[0] == y[-x]:

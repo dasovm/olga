@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import talib
 from collections import deque
+import constants
 
 
 def rsi(prices, n=14):
@@ -106,9 +107,9 @@ def result_percent(values, time_difference):
 def get_rating_from_result(result):
     rating_list = []
     for i, r in np.ndenumerate(result):
-        if (r >= 3):
+        if (r >= constants.MIN_BUY):
             rating_list.append('BUY')
-        elif (r <= -1):
+        elif (r <= constants.MIN_SELL):
             rating_list.append('SELL')
         else:
             rating_list.append('HOLD')
