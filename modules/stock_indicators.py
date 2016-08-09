@@ -114,3 +114,14 @@ def get_rating_from_result(result):
         else:
             rating_list.append('HOLD')
     return np.array(rating_list)
+
+
+def get_rating_from_digit(digit):
+    if digit == 1:
+        return 'BUY'
+    elif digit == 0:
+        return 'HOLD'
+    elif digit == -1:
+        return 'SELL'
+    else:
+        return 'WHAT'

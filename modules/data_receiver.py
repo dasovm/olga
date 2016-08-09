@@ -120,14 +120,16 @@ def get_stock_data(stock_symbol):
     df['MOM Delta 3'] = sti.delta(df['MOM'], 3)
     # df['MOM Delta 7'] = sti.delta(df['MOM'], 7)
 
+    df = df.drop('High', 1).drop('Low', 1)
+    last_day_data = df.tail(1)
+
     df['Rating ' + str(result_days) + ' Days'] = sti.get_rating_from_result(sti.result_percent(prices, result_days))
 
     df = df[df['SMA 50'] != 0]
-    df = df.drop('High', 1).drop('Low', 1)
     df = df[:-result_days]
 
     print("DONE!")
-    return df
+    return df, last_day_data
 
 
 def get_stock_actions(stock_symbol):

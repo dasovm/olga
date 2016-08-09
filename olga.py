@@ -17,11 +17,13 @@ def main():
     stock_count = len(symbols.splitlines())
 
     for symbol in symbols.splitlines():
-        df = dr.get_stock_data(symbol + '.ST')
-        ed.export_to_csv(df, symbol + '.ST')
+        df, last_day_data = dr.get_stock_data(symbol + '.ST')
+        # ed.export_to_csv(df, symbol + '.ST')
         stock_count -= 1
-        X, y = sa.build_data_set(sa.get_data_set_from_csv(symbol + '.ST'))
-        sa.analyzis(X, y)
+        # X, y = sa.build_data_set(sa.get_data_set_from_csv(symbol + '.ST'))
+        X, y = sa.build_data_set(df)
+        # sa.train_and_test(X, y)
+        sa.predict(X, y, last_day_data, symbol)
         print(str(stock_count) + ' stocks left.')
         print '----------\n'
         # break

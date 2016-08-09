@@ -2,6 +2,7 @@ from __future__ import division
 import constants
 import numpy as np
 import pandas as pd
+import stock_indicators as si
 from sklearn import svm, preprocessing
 
 
@@ -29,8 +30,8 @@ def build_data_set(df):
     return X, y
 
 
-def analyzis(X, y):
-    test_size = int(round(len(X) * 0.2))
+def train_and_test(X, y):
+    test_size = int(round(len(X) * 0.1))
     print('Size of test-set: ' + str(test_size))
 
     print('Training the model')
@@ -49,3 +50,16 @@ def analyzis(X, y):
             correct_count += 1
 
     print ('Accuracy: ' + str(round((correct_count / test_size) * 100, 2)) + '%\n')
+
+
+def predict(X, y, last_day_df, ticker = ''):
+    print('')
+    last_day = np.array(last_day_df
+        .drop('Day of week', 1)
+        .drop('Month', 1)
+        .drop('Close', 1)
+        .values)
+    clf = svm.LinearSVC(C = 1.0, dual = False)
+    clf.fit(X, y)
+    prediction = si.get_rating_from_digit(clf.predict(last_day.reshape(1, -1))[0])
+    print(prediction + ' ' + ticker + ' @ price ' + str(last_day_df['Close'].values[0]))
