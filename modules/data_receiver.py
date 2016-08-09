@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import backtrader.indicators as bti
 import stock_indicators as sti
+import constants
 import date_util
 
 """
@@ -15,7 +16,7 @@ Should not be runnable from terminal, only from olga.py
 
 start_time = datetime(2000, 01, 01)
 end_time = datetime.now().date()
-result_days = 10
+result_days = constants.RESULT_DAYS
 
 
 def get_stock_data(stock_symbol):
