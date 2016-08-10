@@ -1,14 +1,8 @@
 from __future__ import division
 import constants
 import numpy as np
-import pandas as pd
 import stock_indicators as si
 from sklearn import svm, preprocessing
-
-
-def get_data_set_from_csv(ticker):
-    print('Retrieving data about ' + ticker)
-    return pd.DataFrame.from_csv('./stock_data/' + ticker + '.csv')
 
 
 def build_data_set(df):
@@ -63,3 +57,4 @@ def predict(X, y, last_day_df, ticker = ''):
     clf.fit(X, y)
     prediction = si.get_rating_from_digit(clf.predict(last_day.reshape(1, -1))[0])
     print(prediction + ' ' + ticker + ' @ price ' + str(last_day_df['Close'].values[0]))
+    return prediction

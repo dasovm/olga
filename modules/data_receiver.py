@@ -129,6 +129,7 @@ def get_stock_data(stock_symbol):
     df = df[:-result_days]
 
     print("DONE!")
+    print(last_day_data)
     return df, last_day_data
 
 
