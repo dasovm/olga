@@ -16,23 +16,18 @@ def update_stock_transactions(ticker, prediction, date, last_day_data):
         columns = ['Price', 'Signal', 'Is Bought', '% Since Buy']
         df = pd.DataFrame(index=index, columns=columns)
 
-    price = last_day_data.loc[date]['Close']
-    is_bought = get_if_is_bought(df, prediction)
-    signal = get_prediction_text(prediction, is_bought)
-    since_buy = get_percent_since_buy(df,
-        get_prediction_text(prediction, is_bought),
-        is_bought,
-        last_day_data['Close'][0])
-    df.loc[date] = [price, signal, is_bought, since_buy]
-    # df.loc[date]['Price'] = last_day_data.loc[date]['Close']
-    # is_bought = get_if_is_bought(df, prediction)
-    # df.loc[date]['Is Bought'] = is_bought
-    # df.loc[date]['Signal'] = get_prediction_text(prediction, is_bought)
-    # df.loc[date]['% Since Buy'] = get_percent_since_buy(df,
-    #     get_prediction_text(prediction, is_bought),
-    #     is_bought,
-    #     last_day_data['Close'])
-    ed.export_to_csv(df, ticker, path)
+    try:
+        price = float("%.3f" % last_day_data.loc[date]['Close'])
+        is_bought = get_if_is_bought(df, prediction)
+        signal = get_prediction_text(prediction, is_bought)
+        since_buy = get_percent_since_buy(df,
+            get_prediction_text(prediction, is_bought),
+            is_bought,
+            last_day_data['Close'][0])
+        df.loc[date] = [price, signal, is_bought, since_buy]
+        ed.export_to_csv(df, ticker, path)
+    except Exception, e:
+        print e
 
 
 def get_if_is_bought(df, prediction):
