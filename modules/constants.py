@@ -1,6 +1,6 @@
 STOCK_DATA = './stock_data/'
 
-STOCK_TRANSACTIONS = './stock_transactions/'
+STOCK_TRANSACTIONS = '../stock_transactions/'
 
 RESULT_DAYS = 2
 
