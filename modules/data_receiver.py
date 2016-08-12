@@ -15,16 +15,15 @@ Should not be runnable from terminal, only from olga.py
 """
 
 start_time = datetime(2000, 01, 01)
-end_time = datetime.now().date()
 result_days = constants.RESULT_DAYS
 
 
-def get_stock_data(stock_symbol):
+def get_stock_data(stock_symbol, end_time=datetime.now().date()):
 
     print("Downloading " + stock_symbol + ' data...'),
 
     # Receive stock info
-    split_df = get_stock_actions(stock_symbol)
+    split_df = get_stock_actions(stock_symbol, end_time)
 
     df = web.DataReader(stock_symbol, 'yahoo', start_time, end_time)
     print("DONE!")
@@ -132,7 +131,7 @@ def get_stock_data(stock_symbol):
     return df, last_day_data
 
 
-def get_stock_actions(stock_symbol):
+def get_stock_actions(stock_symbol, end_time):
     df = web.DataReader(stock_symbol, 'yahoo-actions', start_time, end_time)
     df = df[df['action'] != 'DIVIDEND']
     return df

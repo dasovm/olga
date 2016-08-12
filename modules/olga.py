@@ -1,4 +1,3 @@
-import sys
 import datetime
 import stock_analyzer as analyzer
 import data_receiver as receiver
@@ -10,9 +9,8 @@ import transaction_handler as th
 Main class
 """
 
-# Change to todays date in stable
-date = datetime.datetime.now().date() - datetime.timedelta(days=1)
-# date = datetime.datetime.now().date()
+# Should always be yesterday except for debug purpose
+date = datetime.datetime.now().date() - datetime.timedelta(1)
 
 
 def main():
@@ -20,7 +18,7 @@ def main():
     stock_count = len(symbols.splitlines())
 
     for symbol in symbols.splitlines():
-        df, last_day_data = receiver.get_stock_data(symbol + '.ST')
+        df, last_day_data = receiver.get_stock_data(symbol + '.ST', end_time=date)
         # exporter.export_to_csv(df, symbol + '.ST')
         stock_count -= 1
         # X, y = analyzer.build_data_set(analyzer.get_data_set_from_csv(symbol + '.ST'))
