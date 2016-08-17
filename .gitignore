@@ -242,3 +242,4 @@ GitHub.sublime-settings
 # Custom
 stock_data/
 stock_transactions/
+transaction_log/

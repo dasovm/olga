@@ -120,6 +120,10 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     # df['MOM Delta 7'] = sti.delta(df['MOM'], 7)
 
     df = df.drop('High', 1).drop('Low', 1)
+
+    # For debug purpose
+    # df = df.drop('SMA 15', 1).drop('SMA 10', 1).drop('EMA 10', 1)
+
     last_day_data = df.tail(1)
 
     df['Rating ' + str(result_days) + ' Days'] = sti.get_rating_from_result(sti.result_percent(prices, result_days))
