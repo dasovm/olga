@@ -2,7 +2,7 @@ from __future__ import division
 import constants
 import numpy as np
 import stock_indicators as si
-from sklearn import svm, preprocessing
+from sklearn import svm, preprocessing, ensemble
 
 
 def build_data_set(df):
@@ -24,26 +24,41 @@ def build_data_set(df):
     return X, y
 
 
-def train_and_test(X, y):
-    test_size = int(round(len(X) * 0.1))
+def train_and_test(X, y, percents):
+    test_size = int(round(len(X) * 0.05))
     print('Size of test-set: ' + str(test_size))
 
     print('Training the model')
     # Try both with kernel = 'linear' and 'rbf'
     # clf = svm.SVC(kernel='linear', C = 0.01)
     clf = svm.LinearSVC(C = 1.0, dual = False)
+    # clf = ensemble.RandomForestClassifier(n_jobs=-1,
+    #     n_estimators=200,
+    #     criterion='entropy')
     clf.fit(X[:-test_size], y[:-test_size])
-    # print(clf.predict(X[-1]))
+
     correct_count = 0
+    stock_percent = 0
+    result_percent = 0
+    is_bougth = False
 
     print('Testing the model')
     print 'Features: ' + str(len((X[-1]).reshape(1, -1)[0]))
     for x in range(1, test_size + 1):
-        # print(str(clf.predict(X[-x].reshape(1, -1))[0]) + ', ' + str(y[-x]))
+        if clf.predict(X[-x].reshape(1, -1))[0] == 1:
+            is_bougth = True
+        elif clf.predict(X[-x].reshape(1, -1))[0] == -1:
+            is_bougth = False
+        
         if clf.predict(X[-x].reshape(1, -1))[0] == y[-x]:
             correct_count += 1
+        stock_percent += percents[-x]
+        if is_bougth:
+            result_percent += percents[-x]
+        print 'Guessed: ', str(clf.predict(X[-x].reshape(1, -1))[0]), 'Right: ', str(y[-x]), 'Result:', result_percent
 
     print ('Accuracy: ' + str(round((correct_count / test_size) * 100, 2)) + '%\n')
+    print ('Result: ' + str(result_percent - stock_percent) + ' difference from stock.')
 
 
 def predict(X, y, last_day_df, ticker = ''):

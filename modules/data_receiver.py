@@ -50,6 +50,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     # df['Price Delta% 7'] = sti.delta_percent(prices, 7)
     # df['Price Delta% 30'] = sti.delta_percent(prices, 30)
 
+    # Debug
     df['Volume Delta 1'] = sti.delta_percent(df['Volume'], 1)
     df['Volume Delta 2'] = sti.delta_percent(df['Volume'], 2)
     df['Volume Delta 3'] = sti.delta_percent(df['Volume'], 3)
@@ -59,7 +60,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['RSI Delta 1'] = sti.delta(df['RSI 14'], 1)
     df['RSI Delta 2'] = sti.delta(df['RSI 14'], 2)
     df['RSI Delta 3'] = sti.delta(df['RSI 14'], 3)
-    # df['RSI Delta 7'] = sti.delta(df['RSI 14'], 7)
+    df['RSI Delta 7'] = sti.delta(df['RSI 14'], 7)
 
     df['SMA 15'] = sti.sma(prices, 15)
     df['SMA 50'] = sti.sma(prices, 50)
@@ -67,7 +68,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['SMA Diff Delta 1'] = sti.delta(df['SMA Diff'], 1)
     df['SMA Diff Delta 2'] = sti.delta(df['SMA Diff'], 2)
     df['SMA Diff Delta 3'] = sti.delta(df['SMA Diff'], 3)
-    # df['SMA Diff Delta 7'] = sti.delta(df['SMA Diff'], 7)
+    df['SMA Diff Delta 7'] = sti.delta(df['SMA Diff'], 7)
 
     df['SMA 10'] = sti.sma(prices, 10)
     df['EMA 10'] = sti.ema(prices, 10)
@@ -75,7 +76,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['EMA Diff Delta 1'] = sti.delta(df['EMA Diff'], 1)
     df['EMA Diff Delta 2'] = sti.delta(df['EMA Diff'], 2)
     df['EMA Diff Delta 3'] = sti.delta(df['EMA Diff'], 3)
-    # df['EMA-Diff-Delta-7'] = sti.delta(df['EMA-Diff'], 7)
+    df['EMA Diff Delta 7'] = sti.delta(df['EMA Diff'], 7)
 
     df['MACD'] = sti.macd(prices)
     df['MACD signal'] = sti.macd_signal(df['MACD'])
@@ -83,7 +84,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['MACD Diff Delta 1'] = sti.delta(df['MACD Diff'], 1)
     df['MACD Diff Delta 2'] = sti.delta(df['MACD Diff'], 2)
     df['MACD Diff Delta 3'] = sti.delta(df['MACD Diff'], 3)
-    # df['MACD Diff Delta 7'] = sti.delta(df['MACD Diff'], 7)
+    df['MACD Diff Delta 7'] = sti.delta(df['MACD Diff'], 7)
 
     df['Stochastic K'], df['Stochastic D'] = sti.stochastic(df['High'], df['Low'], prices)
     df['Stochastic Diff'] = sti.diff(df['Stochastic K'], df['Stochastic D'])
@@ -122,14 +123,19 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df = df.drop('High', 1).drop('Low', 1)
 
     # For debug purpose
-    # df = df.drop('SMA 15', 1).drop('SMA 10', 1).drop('EMA 10', 1)
+    df = df.drop('SMA 15', 1).drop('SMA 10', 1).drop('EMA 10', 1)
 
+    # Debug only
     last_day_data = df.tail(1)
+    # last_day_data = df.tail(1).drop('SMA 50', 1)
 
     df['Rating ' + str(result_days) + ' Days'] = sti.get_rating_from_result(sti.result_percent(prices, result_days))
 
     df = df[df['SMA 50'] != 0]
     df = df[:-result_days]
+
+    # Debug only
+    df = df.drop('SMA 50', 1)
 
     print("DONE!")
     return df, last_day_data

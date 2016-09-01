@@ -64,6 +64,8 @@ def get_if_is_bought(df, prediction):
             yester_df = df.tail(1)
             if (yester_df['Signal'].any() == 'BUY'):
                 return True
+            elif yester_df['Signal'].any() == 'SELL':
+                return False
             else:
                 return bool(yester_df['Is Bought'].any())
     except Exception, e:
