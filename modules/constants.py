@@ -14,3 +14,5 @@ MIN_BUY = 3
 
 # No debug: -1
 MIN_SELL = -1
+
+DIVIDER = 0

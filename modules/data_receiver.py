@@ -129,7 +129,9 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     last_day_data = df.tail(1)
     # last_day_data = df.tail(1).drop('SMA 50', 1)
 
+    df['Buy'] = sti.get_is_bought(sti.result_percent(prices, result_days))
     df['Rating ' + str(result_days) + ' Days'] = sti.get_rating_from_result(sti.result_percent(prices, result_days))
+    df['Result'] = sti.result_percent(prices, result_days)
 
     df = df[df['SMA 50'] != 0]
     df = df[:-result_days]

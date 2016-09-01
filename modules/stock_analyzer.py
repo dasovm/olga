@@ -12,12 +12,15 @@ def build_data_set(df):
         .drop('Day of week', 1)
         .drop('Month', 1)
         .drop('Close', 1)
+        .drop('Buy', 1)
+        .drop('Result', 1)
         .values)
-    y = (df['Rating ' + str(constants.RESULT_DAYS) + ' Days']
-        .replace('BUY', 1)
-        .replace('HOLD', 0)
-        .replace('SELL', -1)
-        .values.tolist())
+    # y = (df['Rating ' + str(constants.RESULT_DAYS) + ' Days']
+    #     .replace('BUY', 1)
+    #     .replace('HOLD', 0)
+    #     .replace('SELL', -1)
+    #     .values.tolist())
+    y = (df['Buy'].values.tolist())
 
     print('Preprocessing the data...')
     X = preprocessing.scale(X)
@@ -47,7 +50,7 @@ def train_and_test(X, y, percents):
     for x in range(1, test_size + 1):
         if clf.predict(X[-x].reshape(1, -1))[0] == 1:
             is_bougth = True
-        elif clf.predict(X[-x].reshape(1, -1))[0] == -1:
+        elif clf.predict(X[-x].reshape(1, -1))[0] == 0:
             is_bougth = False
         
         if clf.predict(X[-x].reshape(1, -1))[0] == y[-x]:

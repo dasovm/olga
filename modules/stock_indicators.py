@@ -116,6 +116,16 @@ def get_rating_from_result(result):
     return np.array(rating_list)
 
 
+def get_is_bought(result):
+    rating_list = []
+    for i, r in np.ndenumerate(result):
+        if (r >= constants.DIVIDER):
+            rating_list.append(1)
+        else:
+            rating_list.append(0)
+    return np.array(rating_list)    
+
+
 def get_rating_from_digit(digit):
     if digit == 1:
         return 'BUY'
