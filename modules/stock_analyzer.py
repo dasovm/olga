@@ -2,6 +2,7 @@ from __future__ import division
 import constants
 import numpy as np
 import stock_indicators as si
+import matplotlib.pyplot as plt
 from sklearn import svm, preprocessing, ensemble
 
 
@@ -44,6 +45,8 @@ def train_and_test(X, y, percents):
     stock_percent = 0
     result_percent = 0
     is_bougth = False
+    stock_percents = []
+    result_percents = []
 
     print('Testing the model')
     print 'Features: ' + str(len((X[-1]).reshape(1, -1)[0]))
@@ -59,7 +62,12 @@ def train_and_test(X, y, percents):
         if is_bougth:
             result_percent += percents[-x]
         print 'Guessed: ', str(clf.predict(X[-x].reshape(1, -1))[0]), 'Right: ', str(y[-x]), 'Result:', result_percent
+        stock_percents.append(stock_percent)
+        result_percents.append(result_percent)
 
+    plt.plot(stock_percents, label='Stock change')
+    plt.plot(result_percents, label='Result change')
+    plt.show()
     print ('Accuracy: ' + str(round((correct_count / test_size) * 100, 2)) + '%\n')
     print ('Result: ' + str(result_percent - stock_percent) + ' difference from stock.')
 

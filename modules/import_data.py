@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def get_symbol_list():
-    return import_text_file_to_string('../symbol_list.txt')
+    return import_text_file_to_string('../good_symbol_list.txt')
 
 
 def import_text_file_to_string(path):

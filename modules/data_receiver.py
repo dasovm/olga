@@ -51,9 +51,9 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     # df['Price Delta% 30'] = sti.delta_percent(prices, 30)
 
     # Debug
-    df['Volume Delta 1'] = sti.delta_percent(df['Volume'], 1)
-    df['Volume Delta 2'] = sti.delta_percent(df['Volume'], 2)
-    df['Volume Delta 3'] = sti.delta_percent(df['Volume'], 3)
+    # df['Volume Delta 1'] = sti.delta_percent(df['Volume'], 1)
+    # df['Volume Delta 2'] = sti.delta_percent(df['Volume'], 2)
+    # df['Volume Delta 3'] = sti.delta_percent(df['Volume'], 3)
     # df['Volume Delta 7'] = sti.delta_percent(df['Volume'], 7)
 
     df['RSI 14'] = sti.rsi(prices)
@@ -68,7 +68,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['SMA Diff Delta 1'] = sti.delta(df['SMA Diff'], 1)
     df['SMA Diff Delta 2'] = sti.delta(df['SMA Diff'], 2)
     df['SMA Diff Delta 3'] = sti.delta(df['SMA Diff'], 3)
-    df['SMA Diff Delta 7'] = sti.delta(df['SMA Diff'], 7)
+    # df['SMA Diff Delta 7'] = sti.delta(df['SMA Diff'], 7)
 
     df['SMA 10'] = sti.sma(prices, 10)
     df['EMA 10'] = sti.ema(prices, 10)
@@ -76,7 +76,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['EMA Diff Delta 1'] = sti.delta(df['EMA Diff'], 1)
     df['EMA Diff Delta 2'] = sti.delta(df['EMA Diff'], 2)
     df['EMA Diff Delta 3'] = sti.delta(df['EMA Diff'], 3)
-    df['EMA Diff Delta 7'] = sti.delta(df['EMA Diff'], 7)
+    # df['EMA Diff Delta 7'] = sti.delta(df['EMA Diff'], 7)
 
     df['MACD'] = sti.macd(prices)
     df['MACD signal'] = sti.macd_signal(df['MACD'])
@@ -84,7 +84,7 @@ def get_stock_data(stock_symbol, end_time=datetime.now().date()):
     df['MACD Diff Delta 1'] = sti.delta(df['MACD Diff'], 1)
     df['MACD Diff Delta 2'] = sti.delta(df['MACD Diff'], 2)
     df['MACD Diff Delta 3'] = sti.delta(df['MACD Diff'], 3)
-    df['MACD Diff Delta 7'] = sti.delta(df['MACD Diff'], 7)
+    # df['MACD Diff Delta 7'] = sti.delta(df['MACD Diff'], 7)
 
     df['Stochastic K'], df['Stochastic D'] = sti.stochastic(df['High'], df['Low'], prices)
     df['Stochastic Diff'] = sti.diff(df['Stochastic K'], df['Stochastic D'])

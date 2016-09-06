@@ -85,6 +85,10 @@ def mom(close):
     return np.array(talib.MOM(close))
 
 
+def boilinger(close, time=20):
+    return np.array(talib.BBANDS(close, timeperiod=time, nbdevup=2, nbdevdn=2, matype=0))
+
+
 def diff(values1, values2):
     return values1 - values2
 
