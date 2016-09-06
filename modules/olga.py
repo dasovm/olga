@@ -29,8 +29,8 @@ def main():
             continue
         # exporter.export_to_csv(df, symbol + '.ST')
         # X, y = analyzer.build_data_set(analyzer.get_data_set_from_csv(symbol + '.ST'))
-        X, y = analyzer.build_data_set(df)
-        analyzer.train_and_test(X, y, df['Result'])
+        X, y, dates = analyzer.build_data_set(df)
+        analyzer.train_and_test(X, y, df['Result'], dates)
         # prediction = analyzer.predict(X, y, last_day_data, symbol)
         raw_input('Click to continue')
         continue

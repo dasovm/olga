@@ -8,6 +8,7 @@ from sklearn import svm, preprocessing, ensemble
 
 def build_data_set(df):
     print('Preparing data for analyze...')
+    dates = df.index
     X = np.array(df
         .drop('Rating ' + str(constants.RESULT_DAYS) + ' Days', 1)
         .drop('Day of week', 1)
@@ -25,10 +26,10 @@ def build_data_set(df):
 
     print('Preprocessing the data...')
     X = preprocessing.scale(X)
-    return X, y
+    return X, y, dates
 
 
-def train_and_test(X, y, percents):
+def train_and_test(X, y, percents, dates):
     test_size = int(round(len(X) * 0.05))
     print('Size of test-set: ' + str(test_size))
 
@@ -48,6 +49,7 @@ def train_and_test(X, y, percents):
     stock_percents = []
     result_percents = []
 
+    
     print('Testing the model')
     print 'Features: ' + str(len((X[-1]).reshape(1, -1)[0]))
     for x in range(1, test_size + 1):
@@ -64,9 +66,9 @@ def train_and_test(X, y, percents):
         print 'Guessed: ', str(clf.predict(X[-x].reshape(1, -1))[0]), 'Right: ', str(y[-x]), 'Result:', result_percent
         stock_percents.append(stock_percent)
         result_percents.append(result_percent)
-
-    plt.plot(stock_percents, label='Stock change')
-    plt.plot(result_percents, label='Result change')
+    dates = dates[-test_size:]
+    plt.plot(dates, stock_percents, label='Stock change')
+    plt.plot(dates, result_percents, label='Result change')
     plt.show()
     print ('Accuracy: ' + str(round((correct_count / test_size) * 100, 2)) + '%\n')
     print ('Result: ' + str(result_percent - stock_percent) + ' difference from stock.')
